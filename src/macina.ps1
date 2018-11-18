@@ -3,7 +3,7 @@ param(
     $InputDirectory,
     $OutputFile)
 
-$mediaInfoCliPath = "C:\Users\Simone\source\repos\videozzz\src\mediainfo_cli\MediaInfo.exe"
+$mediaInfoCliPath = "C:\xtraktor\mediainfo_cli\MediaInfo.exe"
 
 function Create-MediaInfoRecord
 {
