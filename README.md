@@ -10,5 +10,5 @@ xcopy /y /E videozzz\src\* C:\xtraktor\
 
 Run
 ```powershell 
-C:\xtraktor\macina.ps1 -InputDirectory "C:\aaaa\bbbb" -OutputFile "C:\vattelappesca\results.csv"
+C:\xtraktor\XTraktor.ps1 -InputDirectory "C:\aaaa\bbbb" -OutputFile "C:\vattelappesca\results.csv"
 ```

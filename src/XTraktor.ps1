@@ -1,9 +1,12 @@
 
 param(
-    $InputDirectory,
-    $OutputFile)
+    [Parameter(Mandatory=$true)]
+    [string]$InputDirectory,
+    [Parameter(Mandatory=$true)]
+    [string]$OutputFile,
+    [Switch]$Overwrite)
 
-$mediaInfoCliPath = "C:\xtraktor\mediainfo_cli\MediaInfo.exe"
+$mediaInfoCliPath = "C:\Users\Simone\source\repos\videozzz\src\mediainfo_cli\MediaInfo.exe"
 
 function Create-MediaInfoRecord
 {
@@ -87,6 +90,17 @@ function  XTrakt-Directory {
 
     Export-MediaInfo -MediaData $MediaData -OutputFile $OutputFile
     Write-Host "COMPLETED -> Processing directory $InputDirectory"
+}
+
+### MAIN ###
+
+if ([IO.File]::Exists($OutputFile) -and !$Overwrite)
+{
+    Write-Host "File $OutputFile already exists."
+    Write-Host "Overwrite? (y|n)"
+    $Key = [Console]::ReadKey()
+    if ($Key.KeyChar.ToString().ToLower() -ne "y")
+        { exit }
 }
 
 XTrakt-Directory -InputDirectory $InputDirectory -OutputFile $OutputFile
