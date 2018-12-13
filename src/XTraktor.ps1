@@ -60,6 +60,27 @@ function Export-MediaInfo
     $Rows | Export-Csv $OutputFile -Delimiter ';' -NoClobber -NoTypeInformation
 }
 
+function Is-DcpDirectory
+{
+    param(
+        [System.IO.DirectoryInfo]$Directory
+    )
+
+    $XmlFiles = $Directory | Get-ChildItem -Filter *.xml | foreach{[xml](get-content $_.FullName)}
+    $CmpXml = $XmlFiles | where{ $_.CompositionPlaylist -ne $null }
+    return $CmpXml -ne $null
+}
+
+function Is-DiDirectory
+{
+    param(
+        [System.IO.DirectoryInfo]$Directory
+    )
+
+    $DiFiles = Get-ChildItem $Directory | where {@(".dpx", ".tif", ".tiff") -contains $_.Extension}
+    return $DiFiles -ne $null
+}
+
 function XTrakt-File
 {
     param(
@@ -81,7 +102,7 @@ function  XTrakt-Directory {
         $InputDirectory,
         $OutputFile
     )
-   
+    
     Write-Host "STARTED -> Processing directory $InputDirectory"
     $Files = Get-ChildItem $InputDirectory -Recurse -File
 
